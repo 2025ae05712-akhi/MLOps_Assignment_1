@@ -8,4 +8,3 @@ mlflow.db
 logs/
 data/*.csv
 reports/junit.xml
-*.pdf
