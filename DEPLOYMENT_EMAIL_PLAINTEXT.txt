@@ -1,0 +1,174 @@
+Subject: MLOps Assignment 1 - Lab Deployment Instructions
+
+Dear Team,
+
+Please find below the complete step-by-step instructions to deploy the MLOps Assignment 1 (Heart Disease Prediction Pipeline) on your BITS Pilani lab environment.
+
+========================================
+
+PROJECT: MLOps Assignment 1 - Heart Disease Prediction
+REPOSITORY: https://github.com/2025ae05712-akhi/MLOps_Assignment_1
+
+========================================
+QUICK START - 3 COMMANDS
+========================================
+
+COMMAND 1 - Clone Repository:
+cd ~ && git clone https://github.com/2025ae05712-akhi/MLOps_Assignment_1.git && cd MLOps_Assignment_1
+
+COMMAND 2 - Run Deployment (takes 5-10 minutes):
+bash lab.sh
+
+COMMAND 3 - Start API Service:
+.venv/bin/uvicorn src.api:app --host 0.0.0.0 --port 8000
+
+After Command 3, API will be available at:
+http://localhost:8000
+Swagger UI: http://localhost:8000/docs
+
+========================================
+DETAILED MANUAL STEPS (if lab.sh fails)
+========================================
+
+STEP 1 - Clone Repository:
+cd ~
+git clone https://github.com/2025ae05712-akhi/MLOps_Assignment_1.git
+cd MLOps_Assignment_1
+
+STEP 2 - Create Virtual Environment:
+python -m venv .venv
+source .venv/bin/activate
+
+STEP 3 - Upgrade Package Manager:
+pip install --upgrade pip setuptools wheel
+
+STEP 4 - Install Dependencies:
+pip install -r requirements-dev.txt
+
+STEP 5 - Download Dataset:
+python data/download_data.py
+
+STEP 6 - Run Exploratory Data Analysis:
+python -m scripts.eda
+
+STEP 7 - Train Model with Hyperparameter Tuning:
+python -m src.train
+
+STEP 8 - Run Unit Tests:
+pytest -v
+
+STEP 9 - Start API Service:
+.venv/bin/uvicorn src.api:app --host 0.0.0.0 --port 8000
+
+STEP 10 - View MLflow Dashboard (in new terminal):
+cd ~/MLOps_Assignment_1
+.venv/bin/mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5000
+
+Then access at:
+http://localhost:5000
+
+========================================
+OPTIONAL - TEST API WITH SAMPLE REQUEST
+========================================
+
+curl -X POST http://localhost:8000/predict -H "Content-Type: application/json" -d '{"age":63,"sex":1,"cp":1,"trestbps":145,"chol":233,"fbs":1,"restecg":2,"thalach":150,"exang":0,"oldpeak":2.3,"slope":3,"ca":0,"thal":6}'
+
+Expected Response:
+{
+  "prediction": 1,
+  "label": "Heart Disease Present",
+  "probability_heart_disease": 0.92,
+  "confidence": 0.92
+}
+
+========================================
+PROJECT STRUCTURE
+========================================
+
+MLOps_Assignment_1/
+  data/
+    download_data.py          - Downloads UCI Heart Disease dataset
+    heart_raw.csv             - Raw data (303 rows, 14 features)
+    heart_clean.csv           - Cleaned data
+
+  scripts/
+    eda.py                    - Exploratory Data Analysis
+
+  src/
+    config.py                 - Paths, constants, feature names
+    data.py                   - Dataset loading and cleaning
+    preprocessing.py          - Data pipeline (imputation, scaling, one-hot)
+    models.py                 - ML models and hyperparameter grids
+    train.py                  - Training with MLflow logging
+    inference.py              - Model loading and prediction
+    api.py                    - FastAPI service
+
+  tests/
+    test_data.py              - Data pipeline tests
+    test_model.py             - Model tests
+    test_api.py               - API endpoint tests
+
+  models/
+    model.joblib              - Trained model (serialized)
+    metrics.json              - Performance metrics
+
+  reports/
+    eda_summary.txt           - EDA statistics
+    figures/                  - Visualizations
+
+  lab.sh                      - Lab deployment script (USE THIS)
+  requirements.txt            - Production dependencies
+  requirements-dev.txt        - Development dependencies
+  README.md                   - Full documentation
+
+========================================
+EXPECTED RESULTS
+========================================
+
+Dataset: 303 rows, 14 columns (UCI Heart Disease Cleveland)
+
+Model Performance:
+- Selected Model: Logistic Regression
+- Test Accuracy: 88.5%
+- Test Precision: 83.9%
+- Test Recall: 92.9%
+- Test ROC-AUC: 0.965
+
+All Tests: 20 PASSED
+
+========================================
+TROUBLESHOOTING
+========================================
+
+Issue: bash: lab.sh: command not found
+Solution: chmod +x lab.sh
+
+Issue: Python 3.11 not found
+Solution: Script uses uv to install Python 3.11. If fails, use manual steps with Python 3.10+
+
+Issue: Port 8000 already in use
+Solution: uvicorn src.api:app --port 8001
+
+Issue: pip install fails
+Solution: pip install --upgrade pip (then retry)
+
+Issue: mlflow command not found
+Solution: source .venv/bin/activate (ensure venv is activated)
+
+========================================
+REPOSITORY LINKS
+========================================
+
+Main Repository: https://github.com/2025ae05712-akhi/MLOps_Assignment_1
+
+For detailed information, see:
+- README.md (Full documentation)
+- SETUP_LAB.md (Lab setup guide)
+- LAB_DEPLOYMENT_EMAIL.md (This email - saved in repo)
+
+========================================
+
+Any questions or issues, refer to the repository documentation.
+
+Best Regards,
+MLOps Team
