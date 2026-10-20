@@ -22,7 +22,7 @@
   "models": [
     {
       "name": "logistic_regression",
-      "run_id": "e1b4117cc50c4e7980bfaec50ade3482",
+      "run_id": "bb0f9b796d0f42179bbc2b476f207587",
       "best_params": {
         "clf__C": 0.1,
         "clf__class_weight": "balanced"
@@ -46,7 +46,7 @@
     },
     {
       "name": "random_forest",
-      "run_id": "b3cab5c0f8694ed7962c5ad52303deb6",
+      "run_id": "09ffef5cf5d14462b513f31d25c7a83d",
       "best_params": {
         "clf__max_depth": null,
         "clf__min_samples_leaf": 5,
@@ -59,8 +59,8 @@
         "cv_precision_std": 0.05472335007531571,
         "cv_recall_mean": 0.7735177865612648,
         "cv_recall_std": 0.0826417847001059,
-        "cv_roc_auc_mean": 0.9019081562559823,
-        "cv_roc_auc_std": 0.03263388641322694
+        "cv_roc_auc_mean": 0.9022578066056326,
+        "cv_roc_auc_std": 0.03266213108432287
       },
       "test": {
         "test_accuracy": 0.8524590163934426,
